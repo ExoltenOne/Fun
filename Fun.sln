@@ -3,8 +3,28 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EDX Courses", "EDX Courses", "{9212EB70-FC27-4F2B-B85B-C659FA0C58A0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DS102X", "DS102X", "{0B400F3C-5762-4F41-88F0-6D2DD8327696}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "MassiveRawDataInGenomics", "EDX Courses\DS102X\MassiveRawDataInGenomics\MassiveRawDataInGenomics.fsproj", "{662283C0-580D-4C87-9580-18AE4BB9089E}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{662283C0-580D-4C87-9580-18AE4BB9089E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{662283C0-580D-4C87-9580-18AE4BB9089E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{662283C0-580D-4C87-9580-18AE4BB9089E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{662283C0-580D-4C87-9580-18AE4BB9089E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0B400F3C-5762-4F41-88F0-6D2DD8327696} = {9212EB70-FC27-4F2B-B85B-C659FA0C58A0}
+		{662283C0-580D-4C87-9580-18AE4BB9089E} = {0B400F3C-5762-4F41-88F0-6D2DD8327696}
 	EndGlobalSection
 EndGlobal
