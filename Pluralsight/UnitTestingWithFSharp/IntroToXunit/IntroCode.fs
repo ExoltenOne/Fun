@@ -15,6 +15,8 @@ module Messaging =
 
 module MessagingTests =
     open Xunit
+    open Swensen.Unquote
+    open Messaging
 
     type Foo = { Text : string; Number : int }
 
@@ -28,6 +30,6 @@ module MessagingTests =
 
         let actual = Messaging.envelop getId getTime item
 
-        Assert.Equal(Guid id, actual.Id)
-        Assert.Equal(DateTimeOffset(ticks, TimeSpan.FromHours offset), actual.Created)
-        Assert.Equal(item, actual.Item)
+        test <@ (Guid id) = actual.Id @>
+        test <@ DateTimeOffset(ticks, TimeSpan.FromHours offset) = actual.Created @>
+        test <@ item = actual.Item @>
