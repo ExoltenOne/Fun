@@ -13,6 +13,8 @@ module Messaging =
         Created = getTime ()
         Item = item }
 
+    let getMachineTime () = DateTimeOffset.Now
+
 module MessagingTests =
     open Xunit
     open Swensen.Unquote
@@ -30,6 +32,18 @@ module MessagingTests =
 
         let actual = Messaging.envelop getId getTime item
 
-        test <@ (Guid id) = actual.Id @>
-        test <@ DateTimeOffset(ticks, TimeSpan.FromHours offset) = actual.Created @>
-        test <@ item = actual.Item @>
+        let expected = {
+            Id = Guid id
+            Created = DateTimeOffset(ticks, TimeSpan.FromHours offset)
+            Item = item }
+        test <@ expected = actual @>
+
+    [<Fact>]
+    let ``getMachineTime returns correct result`` () = 
+        let before = DateTimeOffset.Now
+
+        let actual = Messaging.getMachineTime ()
+
+        let after = DateTimeOffset.Now
+
+        test <@ before <= actual && actual <= after @>
