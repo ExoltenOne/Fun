@@ -27,20 +27,23 @@ let main argv =
 
         compared
 
-    let rec findIdentity starting index (comparedIndividuals : bool list) =
+    let rec findIdentity starting index acc (comparedIndividuals : bool list) =
         match comparedIndividuals with
         | [] ->
-                printfn "done"
+                printfn "%i - %i" (fst acc) (snd acc - 1)
         | x::xs ->
                 match x with
                 | false -> 
-                            printfn "%i - %i" starting index
-                            findIdentity (index + 1) (index + 1) xs
+                            let acc' = 
+                                        match (index - starting) > (snd acc - fst acc) with
+                                        | true -> (starting, index)
+                                        | false -> acc
+                            findIdentity (index + 1) (index + 1) acc' xs
                 | true ->
-                            findIdentity starting (index + 1) xs
+                            findIdentity starting (index + 1) acc xs
 
     compare 3 12 individuals 
     |> Array.toList
-    |> findIdentity 1 1
+    |> findIdentity 1 1 (1,1)
 
     0 // return an integer exit code
