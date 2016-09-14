@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntroductionToPropertyBased
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DiamondKata", "Pluralsight\IntroductionToPropertyBasedTestingWithFSharp\DiamondKata\DiamondKata.fsproj", "{F1E379CD-251A-4C16-A0E8-7D2BA6560A9E}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "InterconnectednessOfPersonalGenomes", "InterconnectednessOfPersonalGenomes\InterconnectednessOfPersonalGenomes.fsproj", "{B56029AB-5E38-4789-BE30-CE1535FA92FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{F1E379CD-251A-4C16-A0E8-7D2BA6560A9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1E379CD-251A-4C16-A0E8-7D2BA6560A9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1E379CD-251A-4C16-A0E8-7D2BA6560A9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B56029AB-5E38-4789-BE30-CE1535FA92FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B56029AB-5E38-4789-BE30-CE1535FA92FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B56029AB-5E38-4789-BE30-CE1535FA92FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B56029AB-5E38-4789-BE30-CE1535FA92FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,5 +61,6 @@ Global
 		{60D211A1-34FD-4A1B-9732-FDEAB2A818DB} = {025CC3CB-39DB-4560-BA42-3BEF6F5321F3}
 		{C01CD885-E0D5-4089-AFD8-A36CF77CB90B} = {2A724EDE-D52E-497A-A629-B4AACB0617AA}
 		{F1E379CD-251A-4C16-A0E8-7D2BA6560A9E} = {C01CD885-E0D5-4089-AFD8-A36CF77CB90B}
+		{B56029AB-5E38-4789-BE30-CE1535FA92FE} = {0B400F3C-5762-4F41-88F0-6D2DD8327696}
 	EndGlobalSection
 EndGlobal
