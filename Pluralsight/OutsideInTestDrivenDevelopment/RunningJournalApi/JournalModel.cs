@@ -1,6 +1,6 @@
 namespace RunningJournalApi
 {
-    public class JournalModule
+    public class JournalModel
     {
         public JournalEntryModel[] Entries { get; set; }
     }

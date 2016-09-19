@@ -15,7 +15,7 @@ namespace RunningJournalApi.AcceptanceTests
         public override void After(MethodInfo methodUnderTest)
         {
             base.After(methodUnderTest);
-            new Bootstrap().UniinstallDatabase();
+            new Bootstrap().UninstallDatabase();
         }
     }
 }

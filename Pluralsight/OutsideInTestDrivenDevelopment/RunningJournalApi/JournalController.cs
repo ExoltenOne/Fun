@@ -1,53 +1,49 @@
-﻿using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Web.Http;
-using Simple.Data;
 
 namespace RunningJournalApi
 {
     public class JournalController : ApiController
     {
-        private readonly dynamic db;
+        private readonly IUserNameProjection userNameProjection;
+        private readonly IJournalEntriesQuery query;
+        private readonly IAddJournalEntryCommand addCommand;
 
-        public JournalController()
+        public JournalController(
+            IUserNameProjection userNameProjection,
+            IJournalEntriesQuery query,
+            IAddJournalEntryCommand addCommand)
         {
-            this.db = CreateDb();
-        }
-
-        private dynamic CreateDb()
-        {
-            var connStr = ConfigurationManager.ConnectionStrings["running-journal"].ConnectionString;
-            return Database.OpenConnection(connStr);
+            this.userNameProjection = userNameProjection;
+            this.query = query;
+            this.addCommand = addCommand;
         }
 
         public HttpResponseMessage Get()
         {
-            SimpleWebToken swt;
-            SimpleWebToken.TryParse(this.Request.Headers.Authorization.Parameter, out swt);
-            var userName = swt.Single(c => c.Type == "userName").Value;
+            var userName = this.userNameProjection.GetUserName(this.Request);
+            if (userName == null)
+                return this.Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "No user name was supplied");
 
-            var entries = db.JournalEntry
-                .FindAll(db.JournalEntry.User.UserName == userName)
-                .ToArray<JournalEntryModel>();
-            return this.Request.CreateResponse(HttpStatusCode.OK, new JournalModule { Entries = entries });
+            var entries = this.query.GetJournalEntries(userName);
+
+            return this.Request.CreateResponse(
+                HttpStatusCode.OK,
+                new JournalModel
+                {
+                    Entries = entries.ToArray()
+                });
         }
 
         public HttpResponseMessage Post(JournalEntryModel journalEntry)
         {
-            SimpleWebToken swt;
-            SimpleWebToken.TryParse(this.Request.Headers.Authorization.Parameter, out swt);
-            var userName = swt.Single(c => c.Type == "userName").Value;
+            var userName = this.userNameProjection.GetUserName(this.Request);
+            if (userName == null)
+                return this.Request.CreateErrorResponse(HttpStatusCode.Unauthorized, "No user name was supplied");
 
-            var userId = db.User.Insert(UserName: userName).UserId;
-            this.db.JournalEntry.Insert(
-                UserId: userId,
-                Time: journalEntry.Time,
-                Distance: journalEntry.Distance,
-                Duration: journalEntry.Duration);
+            this.addCommand.AddJournalEntry(journalEntry, userName);
 
             return this.Request.CreateResponse();
         }
