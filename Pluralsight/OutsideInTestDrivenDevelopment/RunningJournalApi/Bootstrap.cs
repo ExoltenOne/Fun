@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Newtonsoft.Json.Serialization;
 
 namespace RunningJournalApi
 {
@@ -20,6 +21,8 @@ namespace RunningJournalApi
                     id = RouteParameter.Optional
                 });
 
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver =
+                new CamelCasePropertyNamesContractResolver();
         }
     }
 }
