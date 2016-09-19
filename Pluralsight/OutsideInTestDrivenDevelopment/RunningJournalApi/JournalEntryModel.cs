@@ -1,9 +1,8 @@
 using System;
-using System.Security.Principal;
 
 namespace RunningJournalApi
 {
-    public class JournalEntryModule
+    public class JournalEntryModel
     {
         public DateTimeOffset Time { get; set; }
 
