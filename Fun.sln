@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunningJournalApi.Acceptanc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunningJournalApi", "Pluralsight\OutsideInTestDrivenDevelopment\RunningJournalApi\RunningJournalApi.csproj", "{252893FA-D4AD-48B7-8DFC-8A580404CC45}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunningJournalApi.UnitTests", "Pluralsight\OutsideInTestDrivenDevelopment\RunningJournalApi.UnitTests\RunningJournalApi.UnitTests.csproj", "{87FF0C8C-A1DA-485C-9D88-A77BCBD9E5CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +67,10 @@ Global
 		{252893FA-D4AD-48B7-8DFC-8A580404CC45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{252893FA-D4AD-48B7-8DFC-8A580404CC45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{252893FA-D4AD-48B7-8DFC-8A580404CC45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87FF0C8C-A1DA-485C-9D88-A77BCBD9E5CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87FF0C8C-A1DA-485C-9D88-A77BCBD9E5CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87FF0C8C-A1DA-485C-9D88-A77BCBD9E5CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87FF0C8C-A1DA-485C-9D88-A77BCBD9E5CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,5 +88,6 @@ Global
 		{57CCA715-6349-4033-B153-729303F313B7} = {2A724EDE-D52E-497A-A629-B4AACB0617AA}
 		{5BE2C998-FC97-41C9-88B6-4FE1212A1841} = {57CCA715-6349-4033-B153-729303F313B7}
 		{252893FA-D4AD-48B7-8DFC-8A580404CC45} = {57CCA715-6349-4033-B153-729303F313B7}
+		{87FF0C8C-A1DA-485C-9D88-A77BCBD9E5CC} = {57CCA715-6349-4033-B153-729303F313B7}
 	EndGlobalSection
 EndGlobal
