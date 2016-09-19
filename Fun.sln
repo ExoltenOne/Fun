@@ -23,6 +23,14 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DiamondKata", "Pluralsight\
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "InterconnectednessOfPersonalGenomes", "InterconnectednessOfPersonalGenomes\InterconnectednessOfPersonalGenomes.fsproj", "{B56029AB-5E38-4789-BE30-CE1535FA92FE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdvancedUnitTesting", "AdvancedUnitTesting", "{E48887F9-83F7-481D-AADB-005FDBEC088F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OutsideInTestDrivenDevelopment", "OutsideInTestDrivenDevelopment", "{57CCA715-6349-4033-B153-729303F313B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunningJournalApi.AcceptanceTests", "Pluralsight\OutsideInTestDrivenDevelopment\RunningJournalApi.AcceptanceTests\RunningJournalApi.AcceptanceTests.csproj", "{5BE2C998-FC97-41C9-88B6-4FE1212A1841}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunningJournalApi", "Pluralsight\OutsideInTestDrivenDevelopment\RunningJournalApi\RunningJournalApi.csproj", "{252893FA-D4AD-48B7-8DFC-8A580404CC45}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +57,14 @@ Global
 		{B56029AB-5E38-4789-BE30-CE1535FA92FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B56029AB-5E38-4789-BE30-CE1535FA92FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B56029AB-5E38-4789-BE30-CE1535FA92FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BE2C998-FC97-41C9-88B6-4FE1212A1841}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BE2C998-FC97-41C9-88B6-4FE1212A1841}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BE2C998-FC97-41C9-88B6-4FE1212A1841}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BE2C998-FC97-41C9-88B6-4FE1212A1841}.Release|Any CPU.Build.0 = Release|Any CPU
+		{252893FA-D4AD-48B7-8DFC-8A580404CC45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{252893FA-D4AD-48B7-8DFC-8A580404CC45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{252893FA-D4AD-48B7-8DFC-8A580404CC45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{252893FA-D4AD-48B7-8DFC-8A580404CC45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,5 +78,9 @@ Global
 		{C01CD885-E0D5-4089-AFD8-A36CF77CB90B} = {2A724EDE-D52E-497A-A629-B4AACB0617AA}
 		{F1E379CD-251A-4C16-A0E8-7D2BA6560A9E} = {C01CD885-E0D5-4089-AFD8-A36CF77CB90B}
 		{B56029AB-5E38-4789-BE30-CE1535FA92FE} = {0B400F3C-5762-4F41-88F0-6D2DD8327696}
+		{E48887F9-83F7-481D-AADB-005FDBEC088F} = {2A724EDE-D52E-497A-A629-B4AACB0617AA}
+		{57CCA715-6349-4033-B153-729303F313B7} = {2A724EDE-D52E-497A-A629-B4AACB0617AA}
+		{5BE2C998-FC97-41C9-88B6-4FE1212A1841} = {57CCA715-6349-4033-B153-729303F313B7}
+		{252893FA-D4AD-48B7-8DFC-8A580404CC45} = {57CCA715-6349-4033-B153-729303F313B7}
 	EndGlobalSection
 EndGlobal
