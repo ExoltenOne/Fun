@@ -44,5 +44,34 @@ namespace RunningJournalApi.UnitTests
 
             Assert.Equal(expected, actual);
         }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("   ")]
+        [InlineData("foo")]
+        [InlineData("bar")]
+        public void TryParseInvalidStringReturnsFalse(string invalidString)
+        {
+            SimpleWebToken dummy;
+            bool actual = SimpleWebToken.TryParse(invalidString, out dummy);
+
+            Assert.False(actual);
+        }
+
+        [Theory]
+        [InlineData(new object[] { new string[0]})]
+        [InlineData(new object[] { new[] { "foo|bar", "baz|qux" } })]
+        public void TryParseValidStringReturnsCorrectResult(string[] keysAndValues)
+        {
+            var expected = keysAndValues.Select(s => s.Split('|'))
+                .Select(a => new Claim(a[0], a[1])).ToArray();
+            var tokenString = new SimpleWebToken(expected).ToString();
+
+            SimpleWebToken actual;
+            bool isValid = SimpleWebToken.TryParse(tokenString, out actual);
+
+            Assert.True(isValid);
+            Assert.True(expected.SequenceEqual(actual, new ClaimComparer()));
+        }
     }
 }
