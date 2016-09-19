@@ -23,6 +23,22 @@ namespace RunningJournalApi.AcceptanceTests
 
         [Fact]
         [UseDatabase]
+        public void GetReturnsJsonContent()
+        {
+            using (var client = HttpClientFactory.Create())
+            {
+                var response = client.GetAsync("").Result;
+
+                Assert.Equal(
+                    "application/json",
+                    response.Content.Headers.ContentType.MediaType);
+                var json = response.Content.ReadAsJsonAsync().Result;
+                Assert.NotNull(json);
+            }
+        }
+
+        [Fact]
+        [UseDatabase]
         public void PostResponseReturnsCorrectStatusCode()
         {
             using (var client = HttpClientFactory.Create())
@@ -62,9 +78,12 @@ namespace RunningJournalApi.AcceptanceTests
             }
         }
 
-        [Fact]
+        [Theory]
         [UseDatabase]
-        public void GetRootReturnsCorrectEntryFromDatabase()
+        [InlineData("foo")]
+        [InlineData("baz")]
+        [InlineData("bar")]
+        public void GetRootReturnsCorrectEntryFromDatabase(string userName)
         {
             dynamic entry = new ExpandoObject();
             entry.time = DateTimeOffset.Now;
@@ -75,11 +94,11 @@ namespace RunningJournalApi.AcceptanceTests
 
             var connStr = ConfigurationManager.ConnectionStrings["running-journal"].ConnectionString;
             var db = Database.OpenConnection(connStr);
-            var userId = db.User.Insert(UserName: "foo").UserId;
+            var userId = db.User.Insert(UserName: userName).UserId;
             entry.userId = userId;
             db.JournalEntry.Insert(entry);
 
-            using (var client = HttpClientFactory.Create())
+            using (var client = HttpClientFactory.Create(userName))
             {
                 var response = client.GetAsync("").Result;
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
@@ -10,24 +11,39 @@ namespace RunningJournalApi
 {
     public class JournalController : ApiController
     {
-        public HttpResponseMessage Get()
+        private readonly dynamic db;
+
+        public JournalController()
+        {
+            this.db = CreateDb();
+        }
+
+        private dynamic CreateDb()
         {
             var connStr = ConfigurationManager.ConnectionStrings["running-journal"].ConnectionString;
-            var db = Database.OpenConnection(connStr);
+            return Database.OpenConnection(connStr);
+        }
+
+        public HttpResponseMessage Get()
+        {
+            SimpleWebToken swt;
+            SimpleWebToken.TryParse(this.Request.Headers.Authorization.Parameter, out swt);
+            var userName = swt.Single(c => c.Type == "userName").Value;
 
             var entries = db.JournalEntry
-                .FindAll(db.JournalEntry.User.UserName == "foo")
+                .FindAll(db.JournalEntry.User.UserName == userName)
                 .ToArray<JournalEntryModel>();
             return this.Request.CreateResponse(HttpStatusCode.OK, new JournalModule { Entries = entries });
         }
 
         public HttpResponseMessage Post(JournalEntryModel journalEntry)
         {
-            var connStr = ConfigurationManager.ConnectionStrings["running-journal"].ConnectionString;
-            var db = Database.OpenConnection(connStr);
+            SimpleWebToken swt;
+            SimpleWebToken.TryParse(this.Request.Headers.Authorization.Parameter, out swt);
+            var userName = swt.Single(c => c.Type == "userName").Value;
 
-            var userId = db.User.Insert(UserName: "foo").UserId;
-            db.JournalEntry.Insert(
+            var userId = db.User.Insert(UserName: userName).UserId;
+            this.db.JournalEntry.Insert(
                 UserId: userId,
                 Time: journalEntry.Time,
                 Distance: journalEntry.Distance,
