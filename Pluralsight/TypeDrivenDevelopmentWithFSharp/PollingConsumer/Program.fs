@@ -6,7 +6,7 @@ type Timed<'a> =
         Stopped : DateTimeOffset
         Result : 'a
     }
-    member this.Furation = this.Stopped - this.Started
+    member this.Duration = this.Stopped - this.Started
 
 module Untimed =
     let map f x =
