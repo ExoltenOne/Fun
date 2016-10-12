@@ -35,7 +35,14 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "InterconnectednessOfPersona
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TypeDrivenDevelopmentWithFSharp", "TypeDrivenDevelopmentWithFSharp", "{0103154A-98C7-4529-808B-223E44B6D84D}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "PollingConsumer", "Pluralsight\TypeDrivenDevelopmentWithFSharp\PollingConsumer\PollingConsumer.fsproj", "{6AAC8DD0-705F-4F0A-9366-12C9159BF0F9}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "PollingConsumer", "Pluralsight\TypeDrivenDevelopmentWithFSharp\PollingConsumer\PollingConsumer.fsproj", "{1DA9BE65-424A-46A4-8DF7-BA60538E0190}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "PollingConsumer.Tests", "Pluralsight\TypeDrivenDevelopmentWithFSharp\PollingConsumer.Tests\PollingConsumer.Tests.fsproj", "{65DFB73E-78F8-469D-A84F-475B1DE10060}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PollingConsumerScript", "PollingConsumerScript", "{8738A1AE-119D-4D5B-9C82-F8AFC4577AC3}"
+	ProjectSection(SolutionItems) = preProject
+		Pluralsight\TypeDrivenDevelopmentWithFSharp\PollingConsumerScript\PollingConsumer.fsx = Pluralsight\TypeDrivenDevelopmentWithFSharp\PollingConsumerScript\PollingConsumer.fsx
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,10 +82,14 @@ Global
 		{B56029AB-5E38-4789-BE30-CE1535FA92FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B56029AB-5E38-4789-BE30-CE1535FA92FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B56029AB-5E38-4789-BE30-CE1535FA92FE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6AAC8DD0-705F-4F0A-9366-12C9159BF0F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6AAC8DD0-705F-4F0A-9366-12C9159BF0F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6AAC8DD0-705F-4F0A-9366-12C9159BF0F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6AAC8DD0-705F-4F0A-9366-12C9159BF0F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DA9BE65-424A-46A4-8DF7-BA60538E0190}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DA9BE65-424A-46A4-8DF7-BA60538E0190}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DA9BE65-424A-46A4-8DF7-BA60538E0190}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DA9BE65-424A-46A4-8DF7-BA60538E0190}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65DFB73E-78F8-469D-A84F-475B1DE10060}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65DFB73E-78F8-469D-A84F-475B1DE10060}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65DFB73E-78F8-469D-A84F-475B1DE10060}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65DFB73E-78F8-469D-A84F-475B1DE10060}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,6 +109,8 @@ Global
 		{87FF0C8C-A1DA-485C-9D88-A77BCBD9E5CC} = {57CCA715-6349-4033-B153-729303F313B7}
 		{B56029AB-5E38-4789-BE30-CE1535FA92FE} = {0B400F3C-5762-4F41-88F0-6D2DD8327696}
 		{0103154A-98C7-4529-808B-223E44B6D84D} = {2A724EDE-D52E-497A-A629-B4AACB0617AA}
-		{6AAC8DD0-705F-4F0A-9366-12C9159BF0F9} = {0103154A-98C7-4529-808B-223E44B6D84D}
+		{1DA9BE65-424A-46A4-8DF7-BA60538E0190} = {0103154A-98C7-4529-808B-223E44B6D84D}
+		{65DFB73E-78F8-469D-A84F-475B1DE10060} = {0103154A-98C7-4529-808B-223E44B6D84D}
+		{8738A1AE-119D-4D5B-9C82-F8AFC4577AC3} = {0103154A-98C7-4529-808B-223E44B6D84D}
 	EndGlobalSection
 EndGlobal

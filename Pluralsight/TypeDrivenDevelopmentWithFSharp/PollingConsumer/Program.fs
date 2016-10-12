@@ -1,41 +1,67 @@
 ﻿open System
+open Ploeh.Samples
+open Ploeh.Samples.ColorPrint
 
-type Timed<'a> =
-    {
-        Started : DateTimeOffset
-        Stopped : DateTimeOffset
-        Result : 'a
-    }
-    member this.Duration = this.Stopped - this.Started
+let limit = TimeSpan.FromMinutes 1.
 
-module Untimed =
-    let map f x =
-        { Started = x.Started; Stopped = x.Stopped; Result = f x.Result }
+let composeTransition (now : DateTimeOffset) =
+    let stopBefore = now + limit
+    let estimatedDuration = TimeSpan.FromSeconds 2.
+    let idleDuration = TimeSpan.FromSeconds 5.
+    
+    let calculateExpectedDuration =
+        Statistics.calculateExpectedDuration estimatedDuration
+    let shouldPoll = Imp.shouldPoll calculateExpectedDuration stopBefore
 
-    let withResult newResult x = map (fun _ -> newResult) x
+    let r = Random ()
+    let pollForMessage = Simulation.pollForMessage r
+    let handle = Simulation.handle r
+    let poll = Imp.poll pollForMessage handle Clocks.machineClock
 
-module Timed =
-    let capture clock x =
-        let now = clock()
-        { Started = now; Stopped = now; Result = x}
+    let shouldIdle = Imp.shouldIdle idleDuration stopBefore
 
-    let map clock f x =
-        let result = f x.Result
-        let stopped = clock ()
-        { Started = x.Started; Stopped = stopped; Result = result }
+    let idle = Imp.idle idleDuration
 
-    let timeOn clock f x = x |> capture clock |> map clock f
+    PollingConsumer.transition shouldPoll poll shouldIdle idle
 
-module Clocks =
-    let machineClock () = DateTimeOffset.Now
+let printOnEntry (timeAtEntry : DateTimeOffset) =
+    printfn "Started polling at %s." (timeAtEntry.ToString "T")
+    printfn ""
 
-    let acclock (start : DateTimeOffset) rate () =
-        let now = DateTimeOffset.Now
-        let elapsed = now - start
-        start.AddTicks (elapsed.Ticks * rate)
+let printOnExit timeAtEntry (durations : TimeSpan list) =
+    let stats = Statistics.calculateAverageAndStandardDeviation durations
 
-    open System.Collections.Generic
+    let timeAtExit = DateTimeOffset.Now
+    let elapsed = timeAtExit - timeAtEntry
+    let durationColor =
+        if elapsed <= limit then ConsoleColor.Green else ConsoleColor.Red
 
-    let qlock (q : Queue<DateTimeOffset>) = q.Dequeue
+    printfn ""
+    printfn "Stopped polling at %s." (timeAtExit.ToString "T")
+    printf  "Elapsed time: "
+    cprintf durationColor "%s" (elapsed.ToString "c")
+    printfn "."
+    printfn "Handled %i message(s)." durations.Length
+    stats
+    |> Option.map (fun (avg, stdDev) -> avg.ToString "T", stdDev.ToString "T")
+    |> Option.iter (fun (avg, stdDev) ->
+        printfn "Average duration: %s" avg
+        printfn "Standard deviation: %s" stdDev)
 
-    let seqlock (l : DateTimeOffset seq) = Queue<DateTimeOffset> l |> qlock
+[<EntryPoint>]
+let main args =
+    
+    let timeAtEntry = DateTimeOffset.Now
+
+    printOnEntry timeAtEntry
+
+    let durations =
+        PollingConsumer.startOn Clocks.machineClock
+        |> PollingConsumer.unfurl (composeTransition timeAtEntry)
+        |> PollingConsumer.run
+        |> PollingConsumer.durations
+    
+    printOnExit timeAtEntry durations
+
+    // Return 0. This indicates success.
+    0
