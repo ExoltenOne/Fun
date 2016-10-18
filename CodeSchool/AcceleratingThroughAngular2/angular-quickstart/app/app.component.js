@@ -16,25 +16,39 @@ var AppComponent = (function () {
                 "id": 1,
                 "name": "Super Tires",
                 "description": "These tires are the very best",
-                "inStock": 5
+                "inStock": 5,
+                "price": 4.99
             },
             {
                 "id": 2,
                 "name": "Super Tires 2",
                 "description": "These tires are the very best of the best",
-                "inStock": 3
+                "inStock": 3,
+                "price": 7.99
             },
             {
                 "id": 3,
                 "name": "Super Tires 5",
                 "description": "These tires are the very best of the best",
-                "inStock": 0
+                "inStock": 0,
+                "price": 9.99
             }];
     }
+    AppComponent.prototype.totalCarParts = function () {
+        // let sum = 0;
+        //
+        // for(let carPart of this.carParts){
+        //   sum += carPart.inStock;
+        // }
+        //
+        // return sum;
+        return this.carParts.reduce(function (prev, current) { return prev + current.inStock; }, 0);
+    };
+    ;
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: "<h1>{{title}}</h1>\n    <ul>\n      <li *ngFor=\"let carPart of carParts\">\n        <h2>{{carPart.name}}</h2>\n        <p>{{carPart.description}}</p>\n        <p *ngIf=\"carPart.inStock > 0\">{{carPart.inStock}} in Stock</p>\n        <p *ngIf=\"carPart.inStock === 0\">Out of Stock</p>\n      </li>\n    </ul>"
+            template: "<h1>{{title}}</h1>\n    <p>There are {{totalCarParts()}} total parts in stock.</p>\n    <ul>\n      <li *ngFor=\"let carPart of carParts\">\n        <h2>{{carPart.name | uppercase}}</h2>\n        <p>{{carPart.description}}</p>\n        <p>{{carPart.price | currency:'EUR':true}}</p>\n        <p *ngIf=\"carPart.inStock > 0\">{{carPart.inStock}} in Stock</p>\n        <p *ngIf=\"carPart.inStock === 0\">Out of Stock</p>\n      </li>\n    </ul>"
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);
