@@ -15,7 +15,9 @@ var CarPartsComponent = (function () {
         this.racingDataService = racingDataService;
     }
     CarPartsComponent.prototype.ngOnInit = function () {
-        this.carParts = this.racingDataService.getCarParts();
+        var _this = this;
+        this.racingDataService.getCarParts()
+            .subscribe(function (carParts) { return _this.carParts = carParts; });
     };
     ;
     CarPartsComponent.prototype.totalCarParts = function () {
@@ -26,7 +28,10 @@ var CarPartsComponent = (function () {
         // }
         //
         // return sum;
-        return this.carParts.reduce(function (prev, current) { return prev + current.inStock; }, 0);
+        if (Array.isArray(this.carParts)) {
+            return this.carParts.reduce(function (prev, current) { return prev + current.inStock; }, 0);
+        }
+        return 0;
     };
     ;
     CarPartsComponent = __decorate([
