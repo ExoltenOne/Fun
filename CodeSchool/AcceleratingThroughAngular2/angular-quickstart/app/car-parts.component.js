@@ -9,30 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var mocks_1 = require("./mocks");
 var CarPartsComponent = (function () {
     function CarPartsComponent() {
-        this.carParts = [{
-                "id": 1,
-                "name": "Super Tires",
-                "description": "These tires are the very best",
-                "inStock": 5,
-                "price": 4.99
-            },
-            {
-                "id": 2,
-                "name": "Super Tires 2",
-                "description": "These tires are the very best of the best",
-                "inStock": 3,
-                "price": 7.99
-            },
-            {
-                "id": 3,
-                "name": "Super Tires 5",
-                "description": "These tires are the very best of the best",
-                "inStock": 0,
-                "price": 9.99
-            }];
     }
+    CarPartsComponent.prototype.ngOnInit = function () {
+        this.carParts = mocks_1.CARPARTS;
+    };
+    ;
     CarPartsComponent.prototype.totalCarParts = function () {
         // let sum = 0;
         //
