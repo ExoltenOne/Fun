@@ -2,7 +2,7 @@
 _Just some code made for learn and fun_
 
 ### CodeSchool courses:
-* Accelerating Through Angular 2 [__InProgress__]
+* Accelerating Through Angular 2
 
 ### EDX Courses:
 * DS102X Machine Learning for Data Science and Analytics [ColumbiaX]
