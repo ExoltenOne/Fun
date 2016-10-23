@@ -3,6 +3,7 @@ _Just some code made for learn and fun_
 
 ### CodeSchool courses:
 * Accelerating Through Angular 2
+* Shaping Up With AngularJs [__InProgress__]
 
 ### EDX Courses:
 * DS102X Machine Learning for Data Science and Analytics [ColumbiaX]
