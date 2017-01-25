@@ -6,7 +6,7 @@ open System.Web
 open System.Web.Http
 open System.Web.Routing
 
-open Booking.HttpApi.HttpHost
+// open Booking.HttpApi.HttpHost
 
 type HttpRoute = {
     controller : string
@@ -18,12 +18,12 @@ type Global() =
     static member RegisterWebApi(config: HttpConfiguration) =
         // Configure routing
         config.MapHttpAttributeRoutes()
-////        config.Routes.MapHttpRoute(
-////            "DefaultApi", // Route name
-////            "api/{controller}/{id}", // URL with parameters
-////            { controller = "Home"; id = RouteParameter.Optional } // Parameter defaults
-////        ) |> ignore
-        Configure config
+        config.Routes.MapHttpRoute(
+            "DefaultApi", // Route name
+            "api/{controller}/{id}", // URL with parameters
+            { controller = "Home"; id = RouteParameter.Optional } // Parameter defaults
+        ) |> ignore
+        //Configure config
 
         // Configure serialization
         config.Formatters.XmlFormatter.UseXmlSerializer <- true

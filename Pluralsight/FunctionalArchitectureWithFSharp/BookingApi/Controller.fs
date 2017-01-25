@@ -1,4 +1,9 @@
 ﻿namespace BookingApi
 
-type Class1() = 
-    member this.X = "F#"
+open System.Net.Http
+open System.Web.Http
+
+type HomeController() =
+    inherit ApiController()
+
+    member this.Get() = new HttpResponseMessage()

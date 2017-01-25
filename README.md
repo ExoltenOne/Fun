@@ -15,4 +15,4 @@ _Just some code made for learn and fun_
 * Type Driven Development With F#
 * Understanding Machine Learning With Python
 * Unit Testing With F#
-* A Functional Architecture with F# [__InProgress__]
+* A Functional Architecture with F#
