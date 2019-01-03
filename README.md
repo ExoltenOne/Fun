@@ -16,3 +16,4 @@ _Just some code made for learn and fun_
 * Understanding Machine Learning With Python
 * Unit Testing With F#
 * A Functional Architecture with F#
+* TypeScript Fundamentals [__IN PROGRES__]
