@@ -2,7 +2,7 @@
 
 open System
 
-module Infrastracture =
+module EventStore =
 
     type EventStore<'Event> =
         {
@@ -10,47 +10,45 @@ module Infrastracture =
             Append : 'Event list -> unit
         }
 
-    module EventStore =
+    // what can the MB do
+    type Msg<'Event> =
+    | Append of 'Event list
+    | Get of AsyncReplyChannel<'Event list> // what kind of reply do we expect
 
-        // what can the MB do
-        type Msg<'Event> =
-        | Append of 'Event list
-        | Get of AsyncReplyChannel<'Event list> // what kind of reply do we expect
+    let initialize () : EventStore<'Event> =
 
-        let initialize () : EventStore<'Event> =
+        let agent =
+            MailboxProcessor.Start(fun inbox ->
+                // state can be any state the agent should store
+                let rec loop history =
+                    async {
+                        // let! is like await
+                        let! msg = inbox.Receive()
 
-            let agent =
-                MailboxProcessor.Start(fun inbox ->
-                    // state can be any state the agent should store
-                    let rec loop history =
-                        async {
-                            // let! is like await
-                            let! msg = inbox.Receive()
+                        match msg with
+                        | Append events ->
+                            // call the recursive functon to let the agent live
+                            return! loop (history @ events)
+                        | Get reply -> 
+                            // reply on the given channel
+                            reply.Reply history
 
-                            match msg with
-                            | Append events ->
-                                // call the recursive functon to let the agent live
-                                return! loop (history @ events)
-                            | Get reply -> 
-                                // reply on the given channel
-                                reply.Reply history
+                            // call the recursive functon to let the agent live
+                            return! loop history
+                    }
+                loop []
+                )
+        
+        let append events =
+            agent.Post (Append events)
 
-                                // call the recursive functon to let the agent live
-                                return! loop history
-                        }
-                    loop []
-                    )
-            
-            let append events =
-                agent.Post (Append events)
-
-            let get () =
-                agent.PostAndReply Get
-            
-            {
-                Get = get
-                Append = append
-            }
+        let get () =
+            agent.PostAndReply Get
+        
+        {
+            Get = get
+            Append = append
+        }
 
 module Domain =
     type Flavour =
@@ -63,7 +61,42 @@ module Domain =
         | Flavour_went_out_of_stock of Flavour
         | Flavour_was_not_in_stock of Flavour
 
+module Projections =
+
+    open Domain
+
+    type Projection<'State,'Event> =
+        {
+            Init : 'State
+            Update : 'State -> 'Event -> 'State
+        }
+
+    let project (projection : Projection<_,_>) events =
+        events |> List.fold projection.Update projection.Init
+
+    let soldOfFlavour flavour state =
+        state
+        |> Map.tryFind flavour
+        |> Option.defaultValue 0
+
+    let updateSoldFlavours state event =
+        match event with
+        | Flavour_sold flavour ->
+            state
+            |> soldOfFlavour flavour
+            |> fun portions -> state |> Map.add flavour (portions + 1)
+        | _ -> state
+
+    let soldFlavour : Projection<Map<Flavour,int>,Event> =
+        {
+            Init = Map.empty
+            Update = updateSoldFlavours
+        }
+
 module Helper =
+
+    open Projections
+
     let printUl list =
         list
         |> List.iteri (fun i item -> printfn " %i : %A" (i+1) item)
@@ -75,8 +108,13 @@ module Helper =
 
         events |> printUl
 
+    let printSoldFlavour flavour state =
+        state
+        |> soldOfFlavour flavour
+        |> printfn "Sold %A: %i" flavour   
 
-open Infrastracture
+open Projections
+open EventStore
 open Domain
 open Helper
 
@@ -90,7 +128,15 @@ let main argv =
     eventStore.Append [Flavour_sold Vanilla]
     eventStore.Append [Flavour_sold Vanilla; Flavour_went_out_of_stock Vanilla]
 
-    eventStore.Get()
-        |> printEvents
+    let events = eventStore.Get()
+    
+    events |> printEvents
+
+    let sold : Map<Flavour,int> =
+        events
+        |> project soldFlavour
+
+    printSoldFlavour Vanilla sold
+    printSoldFlavour Strawberry sold
 
     0 // return an integer exit code
