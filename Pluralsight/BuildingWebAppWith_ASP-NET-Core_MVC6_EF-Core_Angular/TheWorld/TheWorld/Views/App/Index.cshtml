@@ -1,0 +1,25 @@
+﻿@{ 
+    ViewBag.Title = "Hello Title";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>The world - @ViewBag.Title</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+
+    <div>
+        <a asp-controller="App" asp-action="Index">Home</a>
+    </div>
+
+    <div>
+        <h1>The world - @ViewBag.Title</h1>
+        <p>This will be a fun website soon!</p>
+    </div>
+    <div>
+        &copy; 2017 The World
+    </div>
+</body>
+</html>

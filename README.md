@@ -16,4 +16,9 @@ _Just some code made for learn and fun_
 * Understanding Machine Learning With Python
 * Unit Testing With F#
 * A Functional Architecture with F#
+<<<<<<< HEAD
 * TypeScript Fundamentals [__IN PROGRES__]
+=======
+* Building a Web App with ASP.NET Core, MVC 6, EF Core, and Angular
+* Angular 2 - Reactive Forms
+>>>>>>> ab5a989b96060f757a1639e3ce01ebc7ae576c41

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EDX Courses", "EDX Courses", "{9212EB70-FC27-4F2B-B85B-C659FA0C58A0}"
 EndProject
@@ -51,6 +51,12 @@ EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "BookingApi", "Pluralsight\FunctionalArchitectureWithFSharp\BookingApi\BookingApi.fsproj", "{1D30AFE1-2F58-485B-B846-74996ECD7972}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "BookingApi.UnitTests", "Pluralsight\FunctionalArchitectureWithFSharp\BookingApi.UnitTests\BookingApi.UnitTests.fsproj", "{4C94C319-9517-4922-BD85-32A1EC34962E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Experiments", "Experiments", "{A3F30FF6-3D52-4765-A32B-271E00D1F739}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tuples", "Experiments\Tuples\Tuples.csproj", "{8CDB8E0E-5859-415D-BCA2-2256B1B226C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpFeatures", "Experiments\CSharpFeatures\CSharpFeatures.csproj", "{D8B2E9DB-31EC-460A-A5C6-B57A24E93A2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -164,6 +170,22 @@ Global
 		{4C94C319-9517-4922-BD85-32A1EC34962E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4C94C319-9517-4922-BD85-32A1EC34962E}.Release|x64.ActiveCfg = Release|Any CPU
 		{4C94C319-9517-4922-BD85-32A1EC34962E}.Release|x64.Build.0 = Release|Any CPU
+		{8CDB8E0E-5859-415D-BCA2-2256B1B226C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CDB8E0E-5859-415D-BCA2-2256B1B226C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CDB8E0E-5859-415D-BCA2-2256B1B226C6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8CDB8E0E-5859-415D-BCA2-2256B1B226C6}.Debug|x64.Build.0 = Debug|Any CPU
+		{8CDB8E0E-5859-415D-BCA2-2256B1B226C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CDB8E0E-5859-415D-BCA2-2256B1B226C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CDB8E0E-5859-415D-BCA2-2256B1B226C6}.Release|x64.ActiveCfg = Release|Any CPU
+		{8CDB8E0E-5859-415D-BCA2-2256B1B226C6}.Release|x64.Build.0 = Release|Any CPU
+		{D8B2E9DB-31EC-460A-A5C6-B57A24E93A2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8B2E9DB-31EC-460A-A5C6-B57A24E93A2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8B2E9DB-31EC-460A-A5C6-B57A24E93A2F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D8B2E9DB-31EC-460A-A5C6-B57A24E93A2F}.Debug|x64.Build.0 = Debug|Any CPU
+		{D8B2E9DB-31EC-460A-A5C6-B57A24E93A2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8B2E9DB-31EC-460A-A5C6-B57A24E93A2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8B2E9DB-31EC-460A-A5C6-B57A24E93A2F}.Release|x64.ActiveCfg = Release|Any CPU
+		{D8B2E9DB-31EC-460A-A5C6-B57A24E93A2F}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -190,5 +212,10 @@ Global
 		{C19778C2-F06D-47C9-8731-0C1DEC46C880} = {C480435B-40C0-4441-A1AB-F87C55FE3421}
 		{1D30AFE1-2F58-485B-B846-74996ECD7972} = {C480435B-40C0-4441-A1AB-F87C55FE3421}
 		{4C94C319-9517-4922-BD85-32A1EC34962E} = {C480435B-40C0-4441-A1AB-F87C55FE3421}
+		{8CDB8E0E-5859-415D-BCA2-2256B1B226C6} = {A3F30FF6-3D52-4765-A32B-271E00D1F739}
+		{D8B2E9DB-31EC-460A-A5C6-B57A24E93A2F} = {A3F30FF6-3D52-4765-A32B-271E00D1F739}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ECCE45CF-24C7-4531-BB8A-ABC09983AD60}
 	EndGlobalSection
 EndGlobal
