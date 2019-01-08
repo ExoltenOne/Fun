@@ -4,16 +4,21 @@ open System
 
 module EventStore =
 
+    type EventProducer<'Event> =
+        'Event list -> 'Event list
+
     type EventStore<'Event> =
         {
             Get : unit -> 'Event list
             Append : 'Event list -> unit
+            Evolve : EventProducer<'Event> -> unit
         }
 
     // what can the MB do
     type Msg<'Event> =
     | Append of 'Event list
     | Get of AsyncReplyChannel<'Event list> // what kind of reply do we expect
+    | Evolve of EventProducer<'Event>
 
     let initialize () : EventStore<'Event> =
 
@@ -35,6 +40,11 @@ module EventStore =
 
                             // call the recursive functon to let the agent live
                             return! loop history
+                        | Evolve eventProducer ->
+                            let newEvents =
+                                eventProducer history
+
+                            return! loop (history @ newEvents)
                     }
                 loop []
                 )
@@ -44,10 +54,14 @@ module EventStore =
 
         let get () =
             agent.PostAndReply Get
+
+        let evolve eventProducer =
+            agent.Post (Evolve eventProducer)
         
         {
             Get = get
             Append = append
+            Evolve = evolve
         }
 
 module Domain =
@@ -93,6 +107,55 @@ module Projections =
             Update = updateSoldFlavours
         }
 
+    let restock flavour number stock =
+        stock
+            |> Map.tryFind flavour
+            |> Option.map (fun portions -> stock |> Map.add flavour (portions + number))
+            |> Option.defaultValue stock
+
+    let updateFlavourInStock stock event =
+        match event with
+        | Flavour_sold flavour ->
+            stock |> restock flavour -1
+
+        | Flavour_restocked (flavour,number) ->
+            stock |> restock flavour number
+            
+        | _ -> stock
+
+    let flavourInStock : Projection<Map<Flavour,int>,Event> =
+        {
+            Init = Map.empty
+            Update = updateFlavourInStock
+        }
+
+    let stockOf flavour stock =
+        stock
+        |> Map.tryFind flavour
+        |> Option.defaultValue 0
+
+module Behaviour =
+
+    open Domain
+    open Projections
+
+    let sellFlavour flavour (events : Event list) =
+
+        // get stock for specific flavour
+        let stock = 
+            events
+            |> project flavourInStock
+            |> stockOf flavour
+
+        // check constraints for flavour sold
+        match stock with
+        | 0 -> [Flavour_was_not_in_stock flavour]
+        | 1 -> [Flavour_sold flavour; Flavour_went_out_of_stock flavour]
+        | _ -> [Flavour_sold flavour]
+
+    let restock flavour number events=
+        [Flavour_restocked (flavour,number)]    
+
 module Helper =
 
     open Projections
@@ -123,10 +186,17 @@ let main argv =
 
     let eventStore : EventStore<Event> = EventStore.initialize()
 
-    eventStore.Append [Flavour_restocked (Vanilla,3)]
-    eventStore.Append [Flavour_sold Vanilla]
-    eventStore.Append [Flavour_sold Vanilla]
-    eventStore.Append [Flavour_sold Vanilla; Flavour_went_out_of_stock Vanilla]
+    // eventStore.Append [Flavour_restocked (Vanilla,3)]
+    // eventStore.Append [Flavour_sold Vanilla]
+    // eventStore.Append [Flavour_sold Vanilla]
+    // eventStore.Append [Flavour_sold Strawberry]
+    // eventStore.Append [Flavour_sold Vanilla; Flavour_went_out_of_stock Vanilla]
+
+    eventStore.Evolve (Behaviour.sellFlavour Vanilla)
+    eventStore.Evolve (Behaviour.sellFlavour Strawberry)
+
+    eventStore.Evolve (Behaviour.restock Vanilla 3)   
+    eventStore.Evolve (Behaviour.sellFlavour Vanilla)
 
     let events = eventStore.Get()
     
